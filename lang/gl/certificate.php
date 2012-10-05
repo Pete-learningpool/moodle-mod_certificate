@@ -150,4 +150,6 @@ $string['viewed'] = 'Vostede recibiu este certificado o:';
 $string['viewtranscript'] = 'Ver Certificados';
 $string['typemycertificate'] = 'Certificado Colexio Apóstol Santiago'; // ORPHANED
 
-?>
+$string['certificatetitle'] = 'Certificate title';
+$string['titledefault'] = 'CERTIFICATE of ACHIEVEMENT';
+$string['certificatecoursename'] = 'Course Name';

@@ -198,3 +198,7 @@ $string['verifycertificate'] = 'Verificar Certificado';
 $string['viewcertificateviews'] = 'Ver {$a} certificados emitidos';
 $string['viewed'] = 'Você recebeu este certificado em:';
 $string['viewtranscript'] = 'Ver certificados';
+
+$string['certificatetitle'] = 'Certificate title';
+$string['titledefault'] = 'CERTIFICATE of ACHIEVEMENT';
+$string['certificatecoursename'] = 'Course Name';

@@ -1451,14 +1451,19 @@ function certificate_generate_code() {
  * @return array
  */
 function certificate_scan_image_dir($path) {
+  
     // Array to store the images
     $options = array();
 
     // Start to scan directory
     if (is_dir($path)) {
+
         if ($handle = opendir($path)) {
+
             while (false !== ($file = readdir($handle))) {
-                if (strpos($file, '.png', 1) || strpos($file, '.jpg', 1) ) {
+
+                if (strpos($file, '.png', 1) || strpos($file, '.jpeg', 1) || strpos($file, '.jpg', 1) ) {
+
                     $i = strpos($file, '.');
                     if ($i > 1) {
                         // Set the name
@@ -1472,3 +1477,7 @@ function certificate_scan_image_dir($path) {
 
     return $options;
 }
+
+
+
+

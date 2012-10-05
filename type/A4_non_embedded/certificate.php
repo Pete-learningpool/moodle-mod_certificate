@@ -28,8 +28,6 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from view.php
 }
 
-$pdf = new TCPDF($certificate->orientation, 'mm', 'A4', true, 'UTF-8', false);
-
 $pdf->SetTitle($certificate->name);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
@@ -87,13 +85,27 @@ certificate_print_image($pdf, $certificate, CERT_IMAGE_SEAL, $sealx, $sealy, '',
 certificate_print_image($pdf, $certificate, CERT_IMAGE_SIGNATURE, $sigx, $sigy, '', '');
 
 // Add text
+
+
+//Replace the title with a string if applicable
+$certificatetitle = get_string('titledefault', 'certificate');
+if (!empty($certificate->title)) {
+    $certificatetitle = $certificate->title;
+}
+
+// Replace the course name with a string if applicable
+$classname = $course->fullname;
+if (!empty($certificate->coursename)) {
+    $classname = $certificate->coursename;
+}
+
 $pdf->SetTextColor(0, 0, 120);
-certificate_print_text($pdf, $x, $y, 'C', 'Helvetica', '', 30, get_string('title', 'certificate'));
+certificate_print_text($pdf, $x, $y, 'C', 'Helvetica', '', 30, $certificatetitle);
 $pdf->SetTextColor(0, 0, 0);
 certificate_print_text($pdf, $x, $y + 20, 'C', 'Times', '', 20, get_string('certify', 'certificate'));
 certificate_print_text($pdf, $x, $y + 36, 'C', 'Helvetica', '', 30, fullname($USER));
 certificate_print_text($pdf, $x, $y + 55, 'C', 'Helvetica', '', 20, get_string('statement', 'certificate'));
-certificate_print_text($pdf, $x, $y + 72, 'C', 'Helvetica', '', 20, $course->fullname);
+certificate_print_text($pdf, $x, $y + 72, 'C', 'Helvetica', '', 20, $classname);
 certificate_print_text($pdf, $x, $y + 92, 'C', 'Helvetica', '', 14, certificate_get_date($certificate, $certrecord, $course));
 certificate_print_text($pdf, $x, $y + 102, 'C', 'Times', '', 10, certificate_get_grade($certificate, $course));
 certificate_print_text($pdf, $x, $y + 112, 'C', 'Times', '', 10, certificate_get_outcome($certificate, $course));
@@ -113,4 +125,3 @@ if ($certificate->printteacher) {
 }
 
 certificate_print_text($pdf, $custx, $custy, 'L', null, null, null, $certificate->customtext);
-?>

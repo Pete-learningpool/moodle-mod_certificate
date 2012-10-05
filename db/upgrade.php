@@ -77,6 +77,19 @@ function xmldb_certificate_upgrade($oldversion=0) {
         upgrade_mod_savepoint(true, 2007061300, 'certificate');
     }
 
+    if (  $oldversion < 2007061304) {
+        $table = new XMLDBTable('certificate');
+
+        $field1 = new XMLDBField('title');
+        $field1->setAttributes(XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, null, '', 'timemodified');
+        $result = $result && add_field($table, $field1);
+
+        $field2 = new XMLDBField('coursename');
+        $field2->setAttributes(XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, null, '', 'title');
+        $result = $result && add_field($table, $field2);
+    }
+
+
     if ($oldversion < 2007061301) {
         $table = new xmldb_table('certificate_linked_modules');
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE,  null, null);

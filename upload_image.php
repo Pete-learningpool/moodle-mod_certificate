@@ -60,4 +60,4 @@ if ($upload_form->is_cancelled()) {
 echo $OUTPUT->header();
 echo $upload_form->display();
 echo $OUTPUT->footer();
-?>
+
