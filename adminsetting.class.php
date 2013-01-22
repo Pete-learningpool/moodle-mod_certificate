@@ -44,4 +44,3 @@ class mod_certificate_admin_setting_upload extends admin_setting_configtext {
     }
 }
 
-?>

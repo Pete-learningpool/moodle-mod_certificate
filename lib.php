@@ -1032,6 +1032,7 @@ function certificate_types() {
 /**
  * Get images for mod_form.
  *
+ * 
  * @param string $type the image type
  * @return array
  */
@@ -1139,7 +1140,8 @@ function certificate_get_date($certificate, $certrecord, $course, $userid = null
         $sql = "SELECT MAX(c.timecompleted) as timecompleted
                 FROM {course_completions} c
                 WHERE c.userid = :userid
-                AND c.course = :courseid";
+                AND c.course = :courseid
+                AND c.deleted IS NULL";
         if ($timecompleted = $DB->get_record_sql($sql, array('userid' => $userid, 'courseid' => $course->id))) {
             if (!empty($timecompleted->timecompleted)) {
                 $date = $timecompleted->timecompleted;
@@ -1466,7 +1468,9 @@ function certificate_scan_image_dir($path) {
     if (is_dir($path)) {
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
-                if (strpos($file, '.png', 1) || strpos($file, '.jpg', 1) ) {
+
+                if (strpos($file, '.png', 1) || strpos($file, '.jpeg', 1) || strpos($file, '.jpg', 1) ) {
+
                     $i = strpos($file, '.');
                     if ($i > 1) {
                         // Set the name

@@ -87,8 +87,6 @@ if ($certificate->requiredtime && !has_capability('mod/certificate:manage', $con
 // Create new certificate record, or return existing record
 $certrecord = certificate_get_issue($course, $USER, $certificate, $cm);
 
-// Load the specific certificatetype
-require("$CFG->dirroot/mod/certificate/type/$certificate->certificatetype/certificate.php");
 
 if (empty($action)) { // Not displaying PDF
     echo $OUTPUT->header();
@@ -132,6 +130,11 @@ if (empty($action)) { // Not displaying PDF
     echo $OUTPUT->footer($course);
     exit;
 } else { // Output to pdf
+    $pdf = new TCPDF($certificate->orientation, 'mm', 'A4', true, 'UTF-8', false);
+
+    // Load the specific certificatetype
+    require("$CFG->dirroot/mod/certificate/type/$certificate->certificatetype/certificate.php");
+
     // Remove full-stop at the end if it exists, to avoid "..pdf" being created and being filtered by clean_filename
     $certname = rtrim($certificate->name, '.');
     $filename = clean_filename("$certname.pdf");

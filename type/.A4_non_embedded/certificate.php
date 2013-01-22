@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * letter_non_embedded certificate type
+ * A4_non_embedded certificate type
  *
  * @package    mod
  * @subpackage certificate
@@ -27,9 +27,7 @@
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from view.php
 }
-
-$pdf = new TCPDF($certificate->orientation, 'pt', 'Letter', true, 'UTF-8', false);
-
+//$pdf = new TCPDF($certificate->orientation, 'mm', 'A4', true, 'UTF-8', false);
 $pdf->SetTitle($certificate->name);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
@@ -39,66 +37,80 @@ $pdf->AddPage();
 // Define variables
 // Landscape
 if ($certificate->orientation == 'L') {
-    $x = 28;
-    $y = 125;
-    $sealx = 590;
-    $sealy = 425;
-    $sigx = 130;
-    $sigy = 440;
-    $custx = 133;
-    $custy = 440;
-    $wmarkx = 100;
-    $wmarky = 90;
-    $wmarkw = 600;
-    $wmarkh = 420;
+    $x = 10;
+    $y = 30;
+    $sealx = 230;
+    $sealy = 150;
+    $sigx = 47;
+    $sigy = 155;
+    $custx = 47;
+    $custy = 155;
+    $wmarkx = 40;
+    $wmarky = 31;
+    $wmarkw = 212;
+    $wmarkh = 148;
     $brdrx = 0;
     $brdry = 0;
-    $brdrw = 792;
-    $brdrh = 612;
-    $codey = 505;
+    $brdrw = 297;
+    $brdrh = 210;
+    $codey = 175;
 } else { // Portrait
-    $x = 28;
-    $y = 170;
-    $sealx = 440;
-    $sealy = 590;
-    $sigx = 85;
-    $sigy = 580;
-    $custx = 88;
-    $custy = 580;
-    $wmarkx = 78;
-    $wmarky = 130;
-    $wmarkw = 450;
-    $wmarkh = 480;
-    $brdrx = 10;
-    $brdry = 10;
-    $brdrw = 594;
-    $brdrh = 771;
-    $codey = 660;
+    $x = 10;
+    $y = 40;
+    $sealx = 150;
+    $sealy = 220;
+    $sigx = 30;
+    $sigy = 230;
+    $custx = 30;
+    $custy = 230;
+    $wmarkx = 26;
+    $wmarky = 58;
+    $wmarkw = 158;
+    $wmarkh = 170;
+    $brdrx = 0;
+    $brdry = 0;
+    $brdrw = 210;
+    $brdrh = 297;
+    $codey = 250;
 }
 
 // Add images and lines
 certificate_print_image($pdf, $certificate, CERT_IMAGE_BORDER, $brdrx, $brdry, $brdrw, $brdrh);
-certificate_draw_frame_letter($pdf, $certificate);
+certificate_draw_frame($pdf, $certificate);
 // Set alpha to semi-transparency
-$pdf->SetAlpha(0.1);
+$pdf->SetAlpha(0.2);
 certificate_print_image($pdf, $certificate, CERT_IMAGE_WATERMARK, $wmarkx, $wmarky, $wmarkw, $wmarkh);
 $pdf->SetAlpha(1);
 certificate_print_image($pdf, $certificate, CERT_IMAGE_SEAL, $sealx, $sealy, '', '');
 certificate_print_image($pdf, $certificate, CERT_IMAGE_SIGNATURE, $sigx, $sigy, '', '');
 
 // Add text
+
+
+//Replace the title with a string if applicable
+$certificatetitle = get_string('titledefault', 'certificate');
+if (!empty($certificate->title)) {
+    $certificatetitle = $certificate->title;
+}
+
+// Replace the course name with a string if applicable
+$classname = $course->fullname;
+if (!empty($certificate->coursename)) {
+    $classname = $certificate->coursename;
+}
+
 $pdf->SetTextColor(0, 0, 120);
-certificate_print_text($pdf, $x, $y, 'C', 'Helvetica', '', 30, get_string('title', 'certificate'));
+certificate_print_text($pdf, $x, $y, 'C', 'Helvetica', '', 30, $certificatetitle);
 $pdf->SetTextColor(0, 0, 0);
-certificate_print_text($pdf, $x, $y + 55, 'C', 'Times', '', 20, get_string('certify', 'certificate'));
-certificate_print_text($pdf, $x, $y + 105, 'C', 'Helvetica', '', 30, fullname($USER));
-certificate_print_text($pdf, $x, $y + 155, 'C', 'Helvetica', '', 20, get_string('statement', 'certificate'));
-certificate_print_text($pdf, $x, $y + 205, 'C', 'Helvetica', '', 20, $course->fullname);
-certificate_print_text($pdf, $x, $y + 255, 'C', 'Helvetica', '', 14, certificate_get_date($certificate, $certrecord, $course));
-certificate_print_text($pdf, $x, $y + 283, 'C', 'Times', '', 10, certificate_get_grade($certificate, $course));
-certificate_print_text($pdf, $x, $y + 311, 'C', 'Times', '', 10, certificate_get_outcome($certificate, $course));
+certificate_print_text($pdf, $x, $y + 20, 'C', 'Times', '', 20, get_string('certify', 'certificate'));
+certificate_print_text($pdf, $x, $y + 36, 'C', 'Helvetica', '', 30, fullname($USER));
+certificate_print_text($pdf, $x, $y + 55, 'C', 'Helvetica', '', 20, get_string('statement', 'certificate'));
+certificate_print_text($pdf, $x, $y + 72, 'C', 'Helvetica', '', 20, $classname);
+certificate_print_text($pdf, $x, $y + 92, 'C', 'Helvetica', '', 14, certificate_get_date($certificate, $certrecord, $course));
+certificate_print_text($pdf, $x, $y + 102, 'C', 'Times', '', 10, certificate_get_grade($certificate, $course));
+certificate_print_text($pdf, $x, $y + 112, 'C', 'Times', '', 10, certificate_get_outcome($certificate, $course));
 if ($certificate->printhours) {
-    certificate_print_text($pdf, $x, $y + 339, 'C', 'Times', '', 10, get_string('credithours', 'certificate') . ': ' . $certificate->printhours);
+    certificate_print_text($pdf, $x, $y + 122, 'C', 'Times', '', 10, get_string('credithours', 'certificate') . ': ' . $certificate->printhours);
 }
 certificate_print_text($pdf, $x, $codey, 'C', 'Times', '', 10, certificate_get_code($certificate, $certrecord));
 $i = 0;
@@ -107,10 +119,9 @@ if ($certificate->printteacher) {
     if ($teachers = get_users_by_capability($context, 'mod/certificate:printteacher', '', $sort = 'u.lastname ASC', '', '', '', '', false)) {
         foreach ($teachers as $teacher) {
             $i++;
-            certificate_print_text($pdf, $sigx, $sigy + ($i * 12), 'L', 'Times', '', 12, fullname($teacher));
+            certificate_print_text($pdf, $sigx, $sigy + ($i * 4), 'L', 'Times', '', 12, fullname($teacher));
         }
     }
 }
 
 certificate_print_text($pdf, $custx, $custy, 'L', null, null, null, $certificate->customtext);
-?>
