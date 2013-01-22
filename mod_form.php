@@ -34,7 +34,7 @@ require_once($CFG->dirroot.'/mod/certificate/lib.php');
 class mod_certificate_mod_form extends moodleform_mod {
 
     function definition() {
-        global $CFG;
+        global $CFG, $COURSE;
 
         $mform =& $this->_form;
 
@@ -127,7 +127,28 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->addElement('textarea', 'customtext', get_string('customtext', 'certificate'), array('cols'=>'40', 'rows'=>'4', 'wrap'=>'virtual'));
         $mform->setType('customtext', PARAM_RAW);
         $mform->addHelpButton('customtext', 'customtext', 'certificate');
+//-------------------------------------------------------------------------------
+        $mform->addElement('header', 'certwording', get_string('heading:certwording', 'certificate'));
 
+        $mform->addElement('text', 'txttitle', get_string('certificatetitle', 'certificate'), array('size'=>'64'));
+        $mform->setType('txttitle', PARAM_TEXT);
+        $mform->setDefault('txttitle', get_string('titledefault', 'certificate'));
+        $mform->addRule('txttitle', null, 'required', null, 'client');
+
+        $mform->addElement('text', 'txtcertify', get_string('certify', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txtcertify', get_string('certify', 'certificate'));
+        $mform->setType('txtcertify', PARAM_TEXT);
+
+        $mform->addElement('text', 'txthascompleted', get_string('statement', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txthascompleted', get_string('statement', 'certificate'));
+        $mform->setType('txthascompleted', PARAM_TEXT);
+
+        $mform->addElement('text', 'txtcoursename', get_string('certificatecoursename', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txtcoursename', $COURSE->fullname);
+        $mform->setType('txtcoursename', PARAM_TEXT);
+
+
+//-------------------------------------------------------------------------------
         // Design Options
         $mform->addElement('header', 'designoptions', get_string('designoptions', 'certificate'));
         $mform->addElement('select', 'certificatetype', get_string('certificatetype', 'certificate'), certificate_types());
@@ -160,6 +181,10 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->addElement('select', 'printseal', get_string('printseal', 'certificate'), certificate_get_images(CERT_IMAGE_SEAL));
         $mform->setDefault('printseal', 0);
         $mform->addHelpButton('printseal', 'printseal', 'certificate');
+        
+        //link to page for uploading new images
+        $mform->addElement('html',  html_writer::link(new moodle_url("$CFG->wwwroot/mod/certificate/upload_image.php"), get_string('uploadimage', 'certificate')));
+
 
         $this->standard_coursemodule_elements();
 
