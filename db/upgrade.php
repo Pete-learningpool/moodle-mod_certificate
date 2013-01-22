@@ -483,6 +483,19 @@ function xmldb_certificate_upgrade($oldversion=0) {
         // Certificate savepoint reached
         upgrade_mod_savepoint(true, 2012090901, 'certificate');
     }
+    if ($oldversion < 2013011801) {
 
+        // Define field coursename to be added to certificate
+        $table = new xmldb_table('certificate');
+        $field = new xmldb_field('coursename', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'printteacher');
+
+        // Conditionally launch add field coursename
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // certificate savepoint reached
+        upgrade_mod_savepoint(true, 2013011801, 'certificate');
+    }
     return true;
 }
