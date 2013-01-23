@@ -494,6 +494,14 @@ function xmldb_certificate_upgrade($oldversion=0) {
             $dbman->add_field($table, $field);
         }
 
+        // Define field title to be added to certificate
+        $table = new xmldb_table('certificate');
+        $field = new xmldb_field('title', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'timemodified');
+
+        // Conditionally launch add field title
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
         // certificate savepoint reached
         upgrade_mod_savepoint(true, 2013011801, 'certificate');
     }
