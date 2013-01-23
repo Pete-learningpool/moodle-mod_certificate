@@ -34,7 +34,7 @@ require_once($CFG->dirroot.'/mod/certificate/lib.php');
 class mod_certificate_mod_form extends moodleform_mod {
 
     function definition() {
-        global $CFG;
+        global $CFG, $COURSE;
 
         $mform =& $this->_form;
 
@@ -135,6 +135,7 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->addRule('title', null, 'required', null, 'client');
 
         $mform->addElement('text', 'coursename', get_string('certificatecoursename', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('coursename', $COURSE->fullname);
         $mform->setType('coursename', PARAM_TEXT);
 
 //-------------------------------------------------------------------------------
