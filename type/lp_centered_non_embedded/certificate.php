@@ -30,7 +30,7 @@ $classname = '';
 $classname = $course->fullname;
 //Print the credit hours
 if ($certificate->printhours) {
-    $credithours = $strcredithours . ': ' . $certificate->printhours;
+    $credithours = get_string('credithours','certificate') . ': ' . $certificate->printhours;
 } else
     $credithours = '';
 
@@ -49,12 +49,14 @@ $pdf->AddPage();
 if ($certificate->orientation == 'L') {
     $x = 10;
     $y = 50;
-    $sealx = 230;
-    $sealy = 150;
-    $sigx = 47;
+    $sealx = 10;
+    $sealy = 10;
+    $sealw = 100;
+    $sealh = 38.3333;
+    $sigx = 30;
     $sigy = 155;
-    $custx = 47;
-    $custy = 140;
+    $custx = 180;
+    $custy = 160;
     $wmarkx = 40;
     $wmarky = 31;
     $wmarkw = 212;
@@ -63,13 +65,15 @@ if ($certificate->orientation == 'L') {
     $brdry = 0;
     $brdrw = 297;
     $brdrh = 210;
-    $codey = 175;
+    $codey = 180;
 } else {
 //Portrait
     $x = 10;
     $y = 60;
-    $sealx = 150;
-    $sealy = 220;
+    $sealx = 10;
+    $sealy = 10;
+    $sealw = 100;
+    $sealh = 38.3333;
     $sigx = 30;
     $sigy = 230;
     $custx = 30;
@@ -92,7 +96,7 @@ certificate_draw_frame($pdf, $certificate);
 $pdf->SetAlpha(0.2);
 certificate_print_image($pdf, $certificate, CERT_IMAGE_WATERMARK, $wmarkx, $wmarky, $wmarkw, $wmarkh);
 $pdf->SetAlpha(1);
-certificate_print_image($pdf, $certificate, CERT_IMAGE_SEAL, $sealx, $sealy, '', '');
+certificate_print_image($pdf, $certificate, CERT_IMAGE_SEAL, $sealx, $sealy, $sealw, $sealh);
 certificate_print_image($pdf, $certificate, CERT_IMAGE_SIGNATURE, $sigx, $sigy, '', '');
 
 // Add text
@@ -107,9 +111,9 @@ certificate_print_text($pdf, $x, $y + 55, 'C', 'Helvetica', '', 16, get_string('
 certificate_print_text($pdf, $x, $y + 65, 'C', 'Helvetica', 'B', 16, $classname);
 certificate_print_text($pdf, $x, $y + 77, 'C', 'Helvetica', '', 13, get_string('onthisdate', 'certificate'));
 certificate_print_text($pdf, $x, $y + 85, 'C', 'Helvetica', 'B', 14, $certificatedate);
-certificate_print_text($pdf, $x, $y + 95, 'C', 'Helvetica', '', 10, $grade);
+certificate_print_text($pdf, $x, $y + 117, 'C', 'Helvetica', '', 10, $grade);
+certificate_print_text($pdf, $x, $y + 122, 'C', 'Helvetica', '', 10, $credithours);
 certificate_print_text($pdf, $x, $y + 105, 'C', 'Helvetica', '', 10, $outcome);
-certificate_print_text($pdf, $x, $y + 115, 'C', 'Helvetica', '', 10, $credithours);
 certificate_print_text($pdf, $x, $codey, 'C', 'Helvetica', '', 10, $code);
 $i = 0;
 if ($certificate->printteacher) {
@@ -117,9 +121,9 @@ if ($certificate->printteacher) {
     if ($teachers = get_users_by_capability($context, 'mod/certificate:printteacher', '', $sort = 'u.lastname ASC', '', '', '', '', false)) {
         foreach ($teachers as $teacher) {
             $i++;
-            certificate_print_text($pdf, $sigx, ($sigy + 10) + ($i * 4), 'L', 'Helvetica', '', 12, fullname($teacher));
+            certificate_print_text($pdf, $sigx, ($sigy + 10) + ($i * 5), 'L', 'Helvetica', '', 12, fullname($teacher));
         }
     }
 }
 
-certificate_print_text($pdf, $custx, $custy, 'L', '', '', '', $customtext);
+certificate_print_text($pdf, $custx, $custy, 'l', '', '', 10, $customtext);

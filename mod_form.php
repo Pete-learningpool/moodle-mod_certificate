@@ -128,15 +128,24 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->setType('customtext', PARAM_RAW);
         $mform->addHelpButton('customtext', 'customtext', 'certificate');
 //-------------------------------------------------------------------------------
+        $mform->addElement('header', 'certwording', get_string('heading:certwording', 'certificate'));
 
-        $mform->addElement('text', 'title', get_string('certificatetitle', 'certificate'), array('size'=>'64'));
-        $mform->setType('title', PARAM_TEXT);
-        $mform->setDefault('title', get_string('titledefault', 'certificate'));
-        $mform->addRule('title', null, 'required', null, 'client');
+        $mform->addElement('text', 'txttitle', get_string('certificatetitle', 'certificate'), array('size'=>'64'));
+        $mform->setType('txttitle', PARAM_TEXT);
+        $mform->setDefault('txttitle', get_string('titledefault', 'certificate'));
+        $mform->addRule('txttitle', null, 'required', null, 'client');
 
-        $mform->addElement('text', 'coursename', get_string('certificatecoursename', 'certificate'), array('size'=>'64'));
-        $mform->setDefault('coursename', $COURSE->fullname);
-        $mform->setType('coursename', PARAM_TEXT);
+        $mform->addElement('text', 'txtcertify', get_string('certify', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txtcertify', get_string('certify', 'certificate'));
+        $mform->setType('txtcertify', PARAM_TEXT);
+
+        $mform->addElement('text', 'txthascompleted', get_string('statement', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txthascompleted', get_string('statement', 'certificate'));
+        $mform->setType('txthascompleted', PARAM_TEXT);
+
+        $mform->addElement('text', 'txtcoursename', get_string('certificatecoursename', 'certificate'), array('size'=>'64'));
+        $mform->setDefault('txtcoursename', $COURSE->fullname);
+        $mform->setType('txtcoursename', PARAM_TEXT);
 
 //-------------------------------------------------------------------------------
         // Design Options
