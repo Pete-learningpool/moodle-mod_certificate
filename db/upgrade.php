@@ -483,27 +483,42 @@ function xmldb_certificate_upgrade($oldversion=0) {
         // Certificate savepoint reached
         upgrade_mod_savepoint(true, 2012090901, 'certificate');
     }
-    if ($oldversion < 2013011801) {
+    if ($oldversion < 2013020401) {
 
-        // Define field coursename to be added to certificate
+        // Define field txtcoursename to be added to certificate
         $table = new xmldb_table('certificate');
-        $field = new xmldb_field('coursename', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'printteacher');
+        $field = new xmldb_field('txtcoursename', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'printteacher');
 
-        // Conditionally launch add field coursename
+        // Conditionally launch add field txtcoursename
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-
-        // Define field title to be added to certificate
+        // Define field txttitle to be added to certificate
         $table = new xmldb_table('certificate');
-        $field = new xmldb_field('title', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'timemodified');
+        $field = new xmldb_field('txttitle', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'txtcoursename');
 
-        // Conditionally launch add field title
+        // Conditionally launch add field txttitle
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
+        // Define field txtcertify to be added to certificate
+        $table = new xmldb_table('certificate');
+        $field = new xmldb_field('txtcertify', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'txttitle');
+
+        // Conditionally launch add field txtcertify
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        // Define field txthascompleted to be added to certificate
+        $table = new xmldb_table('certificate');
+        $field = new xmldb_field('txthascompleted', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'txtcertify');
+
+        // Conditionally launch add field txthascompleted
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }        
         // certificate savepoint reached
-        upgrade_mod_savepoint(true, 2013011801, 'certificate');
+        upgrade_mod_savepoint(true, 2013020401, 'certificate');
     }
     return true;
 }

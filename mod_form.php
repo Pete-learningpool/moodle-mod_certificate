@@ -147,6 +147,7 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->setDefault('txtcoursename', $COURSE->fullname);
         $mform->setType('txtcoursename', PARAM_TEXT);
 
+
 //-------------------------------------------------------------------------------
         // Design Options
         $mform->addElement('header', 'designoptions', get_string('designoptions', 'certificate'));
@@ -180,6 +181,10 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->addElement('select', 'printseal', get_string('printseal', 'certificate'), certificate_get_images(CERT_IMAGE_SEAL));
         $mform->setDefault('printseal', 0);
         $mform->addHelpButton('printseal', 'printseal', 'certificate');
+        
+        //link to page for uploading new images
+        $mform->addElement('html',  html_writer::link(new moodle_url("$CFG->wwwroot/mod/certificate/upload_image.php"), get_string('uploadimage', 'certificate')));
+
 
         $this->standard_coursemodule_elements();
 

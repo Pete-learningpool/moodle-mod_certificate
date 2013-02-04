@@ -17,27 +17,21 @@ if ($certificate->printnumber) {
     $code = $certrecord->code;
 }
 
-  // Print the code number
-  $code = '';
-  if($certificate->printnumber) {
-  $code = $certrecord->code;
-  }
+
 
 //Print the student name
-$studentname = '';
 $studentname = fullname($USER);
-$classname = '';
-$classname = $course->fullname;
+
 //Print the credit hours
 if ($certificate->printhours) {
     $credithours = get_string('credithours','certificate') . ': ' . $certificate->printhours;
-} else
+} else {
     $credithours = '';
-
+}
 $customtext = $certificate->customtext;
 $orientation = $certificate->orientation;
 $pdf = new TCPDF($orientation, 'mm', 'A4', true, 'UTF-8', false);
-#$pdf->SetProtection(array('print'));
+// $pdf->SetProtection(array('print'));
 $pdf->SetTitle($certificate->name);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
@@ -100,17 +94,21 @@ certificate_print_image($pdf, $certificate, CERT_IMAGE_SEAL, $sealx, $sealy, $se
 certificate_print_image($pdf, $certificate, CERT_IMAGE_SIGNATURE, $sigx, $sigy, '', '');
 
 // Add text
-$certificatetitle = (!empty($certificate->title)) ? $certificate->title : get_string('titledefault', 'certificate');
-$classname = (!empty($certificate->coursename)) ? $classname = $certificate->coursename : $course->fullname;
+$certificatetitle = (!empty($certificate->txttitle)) ? $certificate->txttitle : get_string('titledefault', 'certificate');
+$classname = (!empty($certificate->txtcoursename)) ? $certificate->txtcoursename : $course->fullname;
+$txtcertify = (!empty($certificate->txtcertify)) ?   $certificate->txtcertify : get_string('certify', 'certificate');
+$txthascompleted = (!empty($certificate->txthascompleted)) ?  $certificate->txthascompleted : get_string('statement', 'certificate');
 
 $pdf->SetTextColor(0, 0, 0);
 certificate_print_text($pdf, $x, $y, 'C', 'Helvetica', 'B', 26, $certificatetitle);
-certificate_print_text($pdf, $x, $y + 20, 'C', 'Helvetica', '', 16, get_string('certify', 'certificate'));
+certificate_print_text($pdf, $x, $y + 20, 'C', 'Helvetica', '', 16, $txtcertify);
 certificate_print_text($pdf, $x, $y + 36, 'C', 'Helvetica', 'B', 26, $studentname);
-certificate_print_text($pdf, $x, $y + 55, 'C', 'Helvetica', '', 16, get_string('statement', 'certificate'));
+certificate_print_text($pdf, $x, $y + 55, 'C', 'Helvetica', '', 16, $txthascompleted);
 certificate_print_text($pdf, $x, $y + 65, 'C', 'Helvetica', 'B', 16, $classname);
-certificate_print_text($pdf, $x, $y + 77, 'C', 'Helvetica', '', 13, get_string('onthisdate', 'certificate'));
-certificate_print_text($pdf, $x, $y + 85, 'C', 'Helvetica', 'B', 14, $certificatedate);
+if( !empty($certificatedate) ){
+    certificate_print_text($pdf, $x, $y + 77, 'C', 'Helvetica', '', 13, get_string('onthisdate', 'certificate'));
+    certificate_print_text($pdf, $x, $y + 85, 'C', 'Helvetica', 'B', 14, $certificatedate);
+}
 certificate_print_text($pdf, $x, $y + 117, 'C', 'Helvetica', '', 10, $grade);
 certificate_print_text($pdf, $x, $y + 122, 'C', 'Helvetica', '', 10, $credithours);
 certificate_print_text($pdf, $x, $y + 105, 'C', 'Helvetica', '', 10, $outcome);
