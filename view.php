@@ -133,7 +133,12 @@ if (empty($action)) { // Not displaying PDF
     $pdf = new TCPDF($certificate->orientation, 'mm', 'A4', true, 'UTF-8', false);
 
     // Load the specific certificatetype
-    require("$CFG->dirroot/mod/certificate/type/$certificate->certificatetype/certificate.php");
+    $type = $certificate->certificatetype;
+    if ($certificate->certificatetype == 'A4_non_embedded') {
+        $type = 'lp_simple_non_embedded';
+    }
+
+    require("$CFG->dirroot/mod/certificate/type/$type/certificate.php");
 
     // Remove full-stop at the end if it exists, to avoid "..pdf" being created and being filtered by clean_filename
     $certname = rtrim($certificate->name, '.');
