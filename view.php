@@ -134,8 +134,8 @@ if (empty($action)) { // Not displaying PDF
 
     // Load the specific certificatetype
     $type = $certificate->certificatetype;
-    if ($certificate->certificatetype == 'A4_non_embedded') {
-        $type = 'lp_simple_non_embedded';
+    if ($type != 'lp_centered_non_embedded' && $type != 'lp_left_non_embedded') {
+        $type = 'lp_left_non_embedded';
     }
 
     require("$CFG->dirroot/mod/certificate/type/$type/certificate.php");
