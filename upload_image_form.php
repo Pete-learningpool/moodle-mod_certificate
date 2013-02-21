@@ -39,7 +39,7 @@ class mod_certificate_upload_image_form extends moodleform {
         $mform =& $this->_form;
 
         $imagetypes = array(
-            CERT_IMAGE_BORDER => get_string('border', 'certificate'),
+            CERT_IMAGE_BORDER => get_string('background', 'certificate'),
             CERT_IMAGE_WATERMARK => get_string('watermark', 'certificate'),
             CERT_IMAGE_SIGNATURE => get_string('signature', 'certificate'),
             CERT_IMAGE_SEAL => get_string('seal', 'certificate')
