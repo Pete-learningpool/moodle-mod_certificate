@@ -183,7 +183,7 @@ class mod_certificate_mod_form extends moodleform_mod {
         $mform->addHelpButton('printseal', 'printseal', 'certificate');
         
         //link to page for uploading new images
-        $mform->addElement('html',  html_writer::link(new moodle_url("$CFG->wwwroot/mod/certificate/upload_image.php"), get_string('uploadimage', 'certificate')));
+        //$mform->addElement('html',  html_writer::link(new moodle_url("$CFG->wwwroot/mod/certificate/upload_image.php"), get_string('uploadimage', 'certificate')));
 
 
         $this->standard_coursemodule_elements();

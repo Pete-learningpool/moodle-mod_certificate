@@ -35,11 +35,11 @@ $string['borderblack'] = 'Black';
 $string['borderblue'] = 'Blue';
 $string['borderbrown'] = 'Brown';
 $string['bordercolor'] = 'Border Lines';
-$string['bordercolor_help'] = 'Since images can substantially increase the size of the pdf file, you may choose to print a border of lines instead of using a border image (be sure the Border Image option is set to No).  The Border Lines option will print a nice border of three lines of varying widths in the chosen color.';
+$string['bordercolor_help'] = 'Since images can substantially increase the size of the pdf file, you may choose to print a border of lines instead of using a background image (be sure the Background Image option is set to No).  The Border Lines option will print a nice border of three lines of varying widths in the chosen colour.';
 $string['bordergreen'] = 'Green';
 $string['borderlines'] = 'Lines';
-$string['borderstyle'] = 'Border Image';
-$string['borderstyle_help'] = 'The Border Image option allows you to choose a border image from the certificate/pix/borders folder.  Select the border image that you want around the certificate edges or select no border.';
+$string['borderstyle'] = 'Background Image';
+$string['borderstyle_help'] = 'The Background Image option allows you to choose a background image from the certificate/pix/borders folder.  Select the background image that you want on the certificate or select no.  Recommended dimensions - height: 1122.52px, width: 793.7px';
 $string['certificate'] = 'Verification for certificate code:';
 $string['certificate:addinstance'] = 'Add a certificate instance';
 $string['certificate:manage'] = 'Manage a certificate instance';
@@ -51,15 +51,11 @@ $string['certificatecoursename'] = 'Course Name';
 $string['certificatereport'] = 'Certificates Report';
 $string['certificatesfor'] = 'Certificates for';
 $string['certificatetype'] = 'Certificate Type';
-$string['certificatetype_help'] = 'This is where you determine the layout of the certificate. The certificate type folder includes four default certificates:
-A4 Embedded prints on A4 size paper with embedded font.
+$string['certificatetype_help'] = 'This is where you determine the layout of the certificate. The certificate type folder includes two default certificates:
 A4 Non-Embedded prints on A4 size paper without embedded fonts.
-Letter Embedded prints on letter size paper with embedded font.
-Letter Non-Embedded prints on letter size paper without embedded fonts.
+Left justified text is on the left.
+Centred text is in the centre.';
 
-The non-embedded types use the Helvetica and Times fonts.  If you feel your users will not have these fonts on their computer, or if your language uses characters or symbols that are not accommodated by the Helvetica and Times fonts, then choose an embedded type.  The embedded types use the Dejavusans and Dejavuserif fonts.  This will make the pdf files rather large; thus it is not recommended to use an embedded type unless you must.
-
-New type folders can be added to the certificate/type folder. The name of the folder and any new language strings for the new type must be added to the certificate language file.';
 $string['certify'] = 'This is to certify that';
 $string['code'] = 'Code';
 $string['completiondate'] = 'Course Completion';
@@ -119,7 +115,7 @@ $string['gradeletter'] = 'Letter Grade';
 $string['gradepercent'] = 'Percentage Grade';
 $string['gradepoints'] = 'Points Grade';
 $string['imagetype'] = 'Image Type';
-$string['incompletemessage'] = 'In order to download your certificate, you must first complete all required '.'activities. Please return to the course to complete your coursework.';
+$string['incompletemessage'] = 'In order to download your certificate, you must first complete all required activities. Please return to the course to complete your coursework.';
 $string['intro'] = 'Introduction';
 $string['issueoptions'] = 'Issue Options';
 $string['issued'] = 'Issued';
@@ -163,14 +159,14 @@ $string['printnumber'] = 'Print Code';
 $string['printnumber_help'] = 'A unique 10-digit code of random letters and numbers can be printed on the certificate. This number can then be verified by comparing it to the code number displayed in the certificates report.';
 $string['printoutcome'] = 'Print Outcome';
 $string['printoutcome_help'] = 'You can choose any course outcome to print the name of the outcome and the user\'s received outcome on the certificate.  An example might be: Assignment Outcome: Proficient.';
-$string['printseal'] = 'Seal or Logo Image';
-$string['printseal_help'] = 'This option allows you to select a seal or logo to print on the certificate from the certificate/pix/seals folder. By default, this image is placed in the lower right corner of the certificate.';
+$string['printseal'] = 'Logo Image';
+$string['printseal_help'] = 'This option allows you to select a logo to print on the certificate from the certificate/pix/seals folder. By default, this image is placed in the upper left corner of the certificate.  Recommended dimensions - height: 144px, width: 377px';
 $string['printsignature'] = 'Signature Image';
 $string['printsignature_help'] = 'This option allows you to print a signature image from the certificate/pix/signatures folder.  You can print a graphic representation of a signature, or print a line for a written signature. By default, this image is placed in the lower left of the certificate.';
 $string['printteacher'] = 'Print Teacher Name(s)';
 $string['printteacher_help'] = 'For printing the teacher name on the certificate, set the role of teacher at the module level.  Do this if, for example, you have more than one teacher for the course or you have more than one certificate in the course and you want to print different teacher names on each certificate.  Click to edit the certificate, then click on the Locally assigned roles tab.  Then assign the role of Teacher (editing teacher) to the certificate (they do not HAVE to be a teacher in the course--you can assign that role to anyone).  Those names will be printed on the certificate for teacher.';
 $string['printwmark'] = 'Watermark Image';
-$string['printwmark_help'] = 'A watermark file can be placed in the background of the certificate. A watermark is a faded graphic. A watermark could be a logo, seal, crest, wording, or whatever you want to use as a graphic background.';
+$string['printwmark_help'] = 'A watermark file can be placed in the background of the certificate. A watermark is a faded graphic. A watermark could be a logo, seal, crest, wording, or whatever you want to use as a graphic background.  Recommended dimensions - height: 642px, width: 597px';
 $string['receivedcerts'] = 'Received certificates';
 $string['receiveddate'] = 'Date Received';
 $string['removecert'] = 'Issued certificates removed';
