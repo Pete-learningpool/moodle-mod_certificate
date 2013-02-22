@@ -47,9 +47,9 @@ if ($orientation == 'L') {
     $sealw = 100;
     $sealh = 38.3333;
     $sigx = 45.5;
-    $sigy = 145;
-    $custx = 130;
-    $custy = 120;
+    $sigy = 190;
+    $custx = 45.5;
+    $custy = 150;
     $wmarkx = 40;
     $wmarky = 31;
     $wmarkw = 212;
@@ -68,9 +68,9 @@ if ($orientation == 'L') {
     $sealw = 100;
     $sealh = 38.3333;
     $sigx = 45.5;
-    $sigy = 165;
+    $sigy = 277;
     $custx = 45.5;
-    $custy = 200;
+    $custy = 170;
     $wmarkx = 26;
     $wmarky = 58;
     $wmarkw = 158;
